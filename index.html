@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NULL://WORLD</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+  --green: #b6ff6a;
+  --bg: #080a09;
+  --muted: #68716b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #e5eae5;
+  font-family: 'Space Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: .12;
+  background: repeating-linear-gradient(
+    transparent 0px,
+    transparent 3px,
+    #ffffff 4px
+  );
+}
+
+#boot {
+  position: fixed;
+  inset: 0;
+  background: #050705;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  transition: opacity 1s;
+}
+
+.boot-text {
+  color: var(--green);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.boot-bar {
+  width: 240px;
+  height: 2px;
+  background: #253023;
+  margin-top: 15px;
+}
+
+#progress {
+  height: 100%;
+  width: 0;
+  background: var(--green);
+  transition: width .15s;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 28px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #263027;
+  padding: 15px 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.logo {
+  color: var(--green);
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.status {
+  color: var(--green);
+}
+
+.hero {
+  padding: 105px 0 65px;
+  text-align: center;
+}
+
+.eyebrow {
+  color: var(--green);
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+h1 {
+  font-family: Orbitron, sans-serif;
+  font-size: clamp(42px, 9vw, 90px);
+  margin: 22px 0;
+  letter-spacing: -5px;
+  animation: flicker 4s infinite;
+}
+
+h1 span { color: var(--green); }
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.coordinates {
+  color: #657067;
+  font-size: 10px;
+  margin-top: 25px;
+}
+
+.section-label {
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 3px;
+  margin: 30px 0 15px;
+}
+
+.portals {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.portal {
+  min-height: 180px;
+  border: 1px solid #29312b;
+  padding: 25px;
+  background: #0b0f0c;
+  cursor: pointer;
+  transition: .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.portal:hover {
+  border-color: var(--green);
+  background: #111a11;
+  transform: translateY(-4px);
+}
+
+.portal .number {
+  color: var(--green);
+  font-size: 10px;
+}
+
+.portal h2 {
+  font-family: Orbitron, sans-serif;
+  font-size: 23px;
+  margin: 23px 0 8px;
+}
+
+.portal p {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.portal .arrow {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  color: var(--green);
+}
+
+footer {
+  border-top: 1px solid #263027;
+  margin-top: 55px;
+  padding: 20px 0;
+  color: var(--muted);
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#window {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  background: #050705ee;
+  padding: 20px;
+  place-items: center;
+}
+
+.window-box {
+  border: 1px solid var(--green);
+  background: #0b0f0c;
+  width: min(600px, 100%);
+  padding: 30px;
+  box-shadow: 0 0 50px #b6ff6a18;
+}
+
+.window-box h2 {
+  color: var(--green);
+  font-family: Orbitron, sans-serif;
+}
+
+.window-box p {
+  color: #9ba69c;
+  font-size: 13px;
+  line-height: 2;
+}
+
+button {
+  background: transparent;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-family: inherit;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--green);
+  color: black;
+}
+
+#terminal {
+  margin-top: 20px;
+  color: var(--green);
+  font-size: 12px;
+}
+
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: .5; }
+  97% { opacity: 1; }
+  98% { opacity: .7; }
+}
+
+@media(max-width:600px) {
+  main { padding: 18px; }
+  .hero { padding: 75px 0 45px; }
+  h1 { letter-spacing: -3px; }
+  .portals { grid-template-columns: 1fr; }
+  footer { gap: 10px; flex-direction: column; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="boot">
+  <div>
+    <div class="boot-text" id="bootText">
+      INITIALIZING NULL://WORLD...
+    </div>
+    <div class="boot-bar">
+      <div id="progress"></div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <header>
+    <div class="logo">NULL://WORLD</div>
+    <div>BUILD 0.01</div>
+    <div class="status">● SYSTEM ONLINE</div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">WELCOME TO THE UNKNOWN</div>
+    <h1>NULL<span>://</span>WORLD</h1>
+    <div class="subtitle">
+      Reality is optional. Exploration is mandatory.
+    </div>
+    <div class="coordinates">
+      DIMENSION 00 // LOCATION UNKNOWN // CONNECTION STABLE
+    </div>
+  </section>
+
+  <div class="section-label">// SELECT YOUR DESTINATION</div>
+
+  <section class="portals">
+
+    <div class="portal" onclick="openPortal('VOID')">
+      <div class="number">01 / UNKNOWN</div>
+      <h2>THE VOID</h2>
+      <p>Some things are better left undiscovered.</p>
+      <div class="arrow">↗</div>
+    </div>
+
+    <div class="portal" onclick="openPortal('CHAOS')">
+      <div class="number">02 / UNSTABLE</div>
+      <h2>CHAOS.EXE</h2>
+      <p>Break the rules. Distort reality.</p>
+      <div class="arrow">↗</div>
+    </div>
+
+    <div class="portal" onclick="openPortal('SYSTEM')">
+      <div class="number">03 / RESTRICTED</div>
+      <h2>THE SYSTEM</h2>
+      <p>Access files. Explore the machine.</p>
+      <div class="arrow">↗</div>
+    </div>
+
+    <div class="portal" onclick="openPortal('LIMINAL')">
+      <div class="number">04 / UNREAL</div>
+      <h2>LIMINAL SPACE</h2>
+      <p>Somewhere between here and nowhere.</p>
+      <div class="arrow">↗</div>
+    </div>
+
+  </section>
+
+  <footer>
+    <div>NULL://WORLD © 2026</div>
+    <div>ALL SYSTEMS NOMINAL</div>
+    <div id="clock">00:00:00</div>
+  </footer>
+</main>
+
+<div id="window">
+  <div class="window-box">
+    <div id="windowNumber" class="eyebrow">UNKNOWN</div>
+    <h2 id="windowTitle">ACCESS GRANTED</h2>
+    <p id="windowDescription"></p>
+    <div id="terminal"></div>
+    <br>
+    <button onclick="closePortal()">[ RETURN ]</button>
+  </div>
+</div>
+
+<script>
+const bootMessages = [
+  "INITIALIZING NULL://WORLD...",
+  "LOADING DIMENSIONS...",
+  "CONNECTING TO UNKNOWN SERVER...",
+  "BYPASSING REALITY...",
+  "SYSTEM ONLINE."
+];
+
+let progress = 0;
+const boot = document.getElementById("boot");
+
+const bootInterval = setInterval(() => {
+  progress += 2;
+  document.getElementById("progress").style.width = progress + "%";
+
+  const index = Math.min(
+    Math.floor(progress / 20),
+    bootMessages.length - 1
+  );
+
+  document.getElementById("bootText").textContent =
+    bootMessages[index];
+
+  if (progress >= 100) {
+    clearInterval(bootInterval);
+    setTimeout(() => {
+      boot.style.opacity = "0";
+      setTimeout(() => boot.remove(), 1000);
+    }, 400);
+  }
+}, 45);
+
+const portals = {
+  VOID: {
+    title: "THE VOID",
+    description: "You've entered somewhere that shouldn't exist. There are secrets hidden here. Look carefully.",
+    terminal: "> 1 SECRET DETECTED. MORE UNKNOWN."
+  },
+  CHAOS: {
+    title: "CHAOS.EXE",
+    description: "Reality is unstable. Your presence has disturbed the system. Something is moving.",
+    terminal: "> REALITY ERROR: 0x000NULL"
+  },
+  SYSTEM: {
+    title: "THE SYSTEM",
+    description: "Welcome, user. Your access level is currently UNKNOWN. The terminal awaits.",
+    terminal: "> TYPE: HELP TO EXPLORE."
+  },
+  LIMINAL: {
+    title: "LIMINAL SPACE",
+    description: "An endless place between places. No beginning. No end. Just you.",
+    terminal: "> LOCATION: NOWHERE."
+  }
+};
+
+function openPortal(name) {
+  const portal = portals[name];
+  document.getElementById("windowNumber").textContent =
+    "// " + name;
+
+  document.getElementById("windowTitle").textContent =
+    portal.title;
+
+  document.getElementById("windowDescription").textContent =
+    portal.description;
+
+  document.getElementById("terminal").textContent =
+    portal.terminal;
+
+  document.getElementById("window").style.display = "grid";
+}
+
+function closePortal() {
+  document.getElementById("window").style.display = "none";
+}
+
+function updateClock() {
+  document.getElementById("clock").textContent =
+    new Date().toLocaleTimeString();
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closePortal();
+});
+</script>
+
+</body>
+</html>
